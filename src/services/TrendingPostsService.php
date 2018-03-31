@@ -60,7 +60,6 @@ class TrendingPostsService extends Component
     public function increment($entryId)
     {   
         $trackSection = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackSection;
-        
         if (!$trackSection) { // Null by default means all posts are tracked
             $inSection = true; 
         } elseif (is_array($trackSection)) {
@@ -68,7 +67,6 @@ class TrendingPostsService extends Component
         } else {
             $inSection = false;
         }
-
         if (!$inSection) return;
 
         $trackDays = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackDays;
