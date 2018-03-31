@@ -36,7 +36,8 @@ return [
     'trackDays' => 7, //default is 7 days
     'trackSection' => [1,2], //limit tracking to specific sections
     'visitorTimeout' => 15 //default is 15 minutes
-];```
+];
+```
 
 The plugin uses an array of numerical section IDs to determine which entries to track. You can find a section's numerical ID by viewing the section in the admin control pannel (/admin/settings/sections) and clicking on the section name. For example: http://yoursite.dev/admin/settings/sections/1
 
@@ -48,7 +49,7 @@ Use the following twig tag to increment view counts. You can put this in a globa
 
 To order entries by most viewed use
 
-`order('popular')`
+`orderBy('popular')`
 
 Example:
 For a single section
