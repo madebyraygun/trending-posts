@@ -1,0 +1,43 @@
+{
+    "name": "madebyraygun/trending-posts",
+    "description": "Order posts by pageviews over time",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "trending-posts"
+    ],
+    "support": {
+        "docs": "https://github.com/madebyraygun/trending-posts/blob/master/README.md",
+        "issues": "https://github.com/madebyraygun/trending-posts/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raygun Design, LLC",
+            "homepage": "https://madebyraygun.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "madebyraygun\\trendingposts\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Trending Posts",
+        "handle": "trending-posts",
+        "hasCpSettings": false,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/madebyraygun/trending-posts/master/CHANGELOG.md",
+        "components": {
+            "trendingPostsService": "madebyraygun\\trendingposts\\services\\TrendingPostsService"
+        },
+        "class": "madebyraygun\\trendingposts\\TrendingPosts"
+    }
+}
