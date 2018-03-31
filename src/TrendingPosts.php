@@ -95,21 +95,24 @@ class TrendingPosts extends Plugin
                 if($sender->elementType == 'craft\elements\Entry'){
                     if ($sender && !empty($sender->orderBy) && array_key_exists('popular', $sender->orderBy)) {
                         $getSection = $sender->sectionId;
-                        if(isset(Craft::$app->getConfig()->getGeneral()->trackSection)){
-                            $trackSection = Craft::$app->getConfig()->getGeneral()->trackSection;
+                        $trackSection = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackSection;
+                        if (!$trackSection) { // Null by default means all posts are tracked
+                            $inSection = true; 
+                        } elseif (is_array($trackSection)) {
                             $inSection = !empty(array_intersect($trackSection, $getSection));
-                            if($inSection == 1){
-                                TrendingPosts::$plugin->TrendingPostsService->modifyElementsQuery($sender);
-                            }else{
-                                TrendingPosts::$plugin->TrendingPostsService->removeElementsQuery($sender);
-                            }
+                        } else {
+                            $inSection = false;
+                        }
+
+                        if($inSection == true){
+                            TrendingPosts::$plugin->trendingPostsService->modifyElementsQuery($sender);
                         }else{
-                            TrendingPosts::$plugin->TrendingPostsService->removeElementsQuery($sender);
+                            TrendingPosts::$plugin->trendingPostsService->removeElementsQuery($sender);
                         }
                     }
                 }else{
                     if ($sender && !empty($sender->orderBy) && array_key_exists('popular', $sender->orderBy)) {
-                        TrendingPosts::$plugin->TrendingPostsService->removeElementsQuery($sender);
+                        TrendingPosts::$plugin->trendingPostsService->removeElementsQuery($sender);
                     }
                 }
             }
@@ -145,5 +148,10 @@ class TrendingPosts extends Plugin
 
     // Protected Methods
     // =========================================================================
+
+    protected function createSettingsModel()
+    {
+        return new \madebyraygun\trendingposts\models\Settings();
+    }
 
 }

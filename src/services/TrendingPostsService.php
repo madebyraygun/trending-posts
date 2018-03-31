@@ -59,19 +59,27 @@ class TrendingPostsService extends Component
 
     public function increment($entryId)
     {   
-        if(isset(Craft::$app->getConfig()->getGeneral()->trackDays)){
-            $trackDays = Craft::$app->getConfig()->getGeneral()->trackDays;
-        }else{
-            $trackDays = 7;
+        $trackSection = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackSection;
+        
+        if (!$trackSection) { // Null by default means all posts are tracked
+            $inSection = true; 
+        } elseif (is_array($trackSection)) {
+            $inSection = in_array($getSection, $trackSection);
+        } else {
+            $inSection = false;
         }
+
+        if (!$inSection) return;
+
+        $trackDays = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackDays;
         $trackSeconds = $trackDays*24*60*60;
         $now = Db::prepareDateForDb(new \DateTime());
         $currentDate = strtotime($now);
         $yesterday = date("Y-m-d H:i:s", $currentDate-(24*60*60));
 
         //debounce time limit to prevent duplicate entries
-        //@todo make configurable
-        $duplicateEntryCutoff = date("Y-m-d H:i:s", $currentDate+(60*15));
+        $visitorTimeout = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->visitorTimeout;
+        $duplicateEntryCutoff = date("Y-m-d H:i:s", $currentDate+(60*$visitorTimeout));
 
         //calculate cutoff date to delete old entries
         $minusTrackDate = date("Y-m-d H:i:s", $currentDate-$trackSeconds);
@@ -197,22 +205,26 @@ class TrendingPostsService extends Component
     {      
         $sender = $e->sender;
         $getSection = $sender->sectionId;
-        if(isset(Craft::$app->getConfig()->getGeneral()->trackSection)){
-            $trackSection = Craft::$app->getConfig()->getGeneral()->trackSection;
+        $trackSection = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackSection;
+        
+        if (!$trackSection) {
+            $inSection = true; 
+        } elseif (is_array($trackSection)) {
             $inSection = in_array($getSection, $trackSection);
-            if($inSection == 1){
-                $entryId = $sender->id;
-                $getResults = $this->_getpageViewQuery()
-                    ->where(['entryId' => $entryId])
-                    ->one();
-                $getResult = $getResults["totalviews"];
-                if($getResult){
-                    $e->html = $getResult;
-                }else{
-                    $e->html = 0;
-                }
+        } else {
+            $inSection = false;
+        }
+
+        if($inSection == true){
+            $entryId = $sender->id;
+            $getResults = $this->_getpageViewQuery()
+                ->where(['entryId' => $entryId])
+                ->one();
+            $getResult = $getResults["totalviews"];
+            if($getResult){
+                $e->html = $getResult;
             }else{
-                $e->html = '-';
+                $e->html = 0;
             }
         }else{
             $e->html = '-';
