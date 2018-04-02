@@ -122,8 +122,9 @@ class TrendingPosts extends Plugin
             Element::class,
             Element::EVENT_REGISTER_TABLE_ATTRIBUTES,
             function(craft\events\RegisterElementTableAttributesEvent $e) {
+                $viewLabel = 'Views ('.$this->getSettings()->trackDays.' days)';
                 $e->tableAttributes['views'] = [
-                    'label' => "Page Views"
+                    'label' => $viewLabel
                 ];
         });
 
