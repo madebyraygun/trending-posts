@@ -26,6 +26,6 @@ class TrendingPostsRecord extends ActiveRecord
     // =========================================================================
     public static function tableName()
     {
-        return '{{%trendingpostsrecord}}';
+        return '{{%trendingposts}}';
     }
 }

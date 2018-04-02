@@ -73,11 +73,11 @@ class Install extends Migration
         $tablesCreated = false;
 
         // trendingpostsrecord table
-        $tableSchema = Craft::$app->db->schema->getTableSchema('{{%trendingpostsrecord}}');
+        $tableSchema = Craft::$app->db->schema->getTableSchema('{{%trendingposts}}');
         if ($tableSchema === null) {
             $tablesCreated = true;
             $this->createTable(
-                '{{%trendingpostsrecord}}',
+                '{{%trendingposts}}',
                 [
                     'id' => $this->primaryKey(),
                     'dateCreated' => $this->dateTime()->notNull(),
@@ -91,9 +91,9 @@ class Install extends Migration
                     'views' => $this->integer()->notNull(),
                 ]
             );
-            // trendingpostscounterrecord table
+            // trendingpostssummaryrecord table
             $this->createTable(
-                '{{%trendingpostscounterrecord}}',
+                '{{%trendingpostssummary}}',
                 [
                     'id' => $this->primaryKey(),
                     'dateCreated' => $this->dateTime()->notNull(),
@@ -128,13 +128,13 @@ class Install extends Migration
     // trendingpostsrecord table
         $this->createIndex(
             null,
-            '{{%trendingpostsrecord}}',
+            '{{%trendingposts}}',
             'id',
             true
         );
         $this->createIndex(
             null,
-            '{{%trendingpostscounterrecord}}',
+            '{{%trendingpostssummary}}',
             'id',
             true
         );
@@ -160,8 +160,8 @@ class Install extends Migration
     {
     // trendingpostsrecord table
         $this->addForeignKey(
-            $this->db->getForeignKeyName('{{%trendingpostsrecord}}', 'siteId'),
-            '{{%trendingpostsrecord}}',
+            $this->db->getForeignKeyName('{{%trendingposts}}', 'siteId'),
+            '{{%trendingposts}}',
             'siteId',
             '{{%sites}}',
             'id',
@@ -170,8 +170,8 @@ class Install extends Migration
         );
 
         $this->addForeignKey(
-            $this->db->getForeignKeyName('{{%trendingpostscounterrecord}}', 'siteId'),
-            '{{%trendingpostscounterrecord}}',
+            $this->db->getForeignKeyName('{{%trendingpostssummary}}', 'siteId'),
+            '{{%trendingpostssummary}}',
             'siteId',
             '{{%sites}}',
             'id',
@@ -191,8 +191,8 @@ class Install extends Migration
      */
     protected function removeTables()
     {
-        $this->dropTableIfExists('{{%trendingpostsrecord}}');
-        $this->dropTableIfExists('{{%trendingpostscounterrecord}}');
+        $this->dropTableIfExists('{{%trendingposts}}');
+        $this->dropTableIfExists('{{%trendingpostssummary}}');
         // $this->dropTableIfExists('{{%pageviewsgarbagecollectionrecord}}');
     }
 }

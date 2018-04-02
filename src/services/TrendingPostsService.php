@@ -30,9 +30,9 @@ use yii\db\Expression;
  */
 class TrendingPostsService extends Component
 {
-    public $trendingposts = '{{%trendingpostsrecord}}';
+    public $trendingposts = '{{%trendingposts}}';
 
-    public $trendingpostscounter = '{{%trendingpostscounterrecord}}';
+    public $trendingpostssummary = '{{%trendingpostssummary}}';
 
     public function _pageViewQuery(): Query
     {
@@ -45,7 +45,7 @@ class TrendingPostsService extends Component
                 'userIp',
                 'views',
             ])
-            ->from(['{{%trendingpostsrecord}}']);
+            ->from(['{{%trendingposts}}']);
     }
 
     public function _getpageViewQuery(): Query
@@ -54,7 +54,7 @@ class TrendingPostsService extends Component
             ->select([
                 'totalviews'
             ])
-            ->from(['{{%trendingpostscounterrecord}}']);
+            ->from(['{{%trendingpostssummary}}']);
     }
 
     public function increment($entryId)
@@ -139,19 +139,19 @@ class TrendingPostsService extends Component
 
         $query = (new Query())
             ->select(['entryId', 'sum(views) as totalviews'])
-            ->from(['{{%trendingpostsrecord}}'])
+            ->from(['{{%trendingposts}}'])
             ->orderBy(['totalviews' => SORT_DESC])
             ->groupBy('entryId')
             ->all();
 
         Craft::$app->getDb()->createCommand()
-        ->delete($this->trendingpostscounter)
+        ->delete($this->trendingpostssummary)
         ->execute();
             
         foreach ($query as $i => $result) {
             Craft::$app->getDb()->createCommand()
             ->insert(
-                $this->trendingpostscounter,
+                $this->trendingpostssummary,
                 [   
                     'dateCreated' => $now,
                     'dateUpdated' => $now,
@@ -169,8 +169,8 @@ class TrendingPostsService extends Component
      */
     public function modifyElementsQuery (ElementQueryInterface $sender)
     {   
-        $tableName = $this->trendingpostscounter;
-        $tableAlias = 'trendingpostscounter' . bin2hex(openssl_random_pseudo_bytes(5));
+        $tableName = $this->trendingpostssummary;
+        $tableAlias = 'trendingpostssummary' . bin2hex(openssl_random_pseudo_bytes(5));
 
         $on = '[[entries.id]] = [['.$tableAlias.'.entryId]]';
 
