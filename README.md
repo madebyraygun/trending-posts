@@ -6,7 +6,7 @@ A plugin to track page views on specific sections over time and order posts on t
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-beta.23 or later.
+This plugin requires Craft CMS 3.0.0 or later.
 
 ## Installation
 
