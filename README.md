@@ -8,7 +8,7 @@ This plugin requires Craft CMS 3.0.0 or later.
 
 ## Installation
 
-This plugin is not on packagist, so you'll need to create a local Composer repository to install. From [https://nystudio107.com/blog/so-you-wanna-make-a-craft-3-plugin](Andrew Welch's guide to Craft 3 plugins):
+This plugin is not on packagist, so you'll need to create a local Composer repository to install. From [Andrew Welch's guide to Craft 3 plugins](https://nystudio107.com/blog/so-you-wanna-make-a-craft-3-plugin):
 
 1. Download the plugin locally to a directory relative to your Craft installation. 
 
@@ -27,11 +27,12 @@ This plugin is not on packagist, so you'll need to create a local Composer repos
     "type": "path",
     "url": "../dev/trending-posts/"
   }
-]```
+]
+```
 
 4. Run composer update.
 
-4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Trending Posts.
+5. In the Control Panel, go to Settings → Plugins and click the “Install” button for Trending Posts.
 
 ## Configuration
 
@@ -71,4 +72,5 @@ Ideas?
 ## Credits
 
 Brought to you by [Raygun](https://madebyraygun.com)
+
 With initial development by [Bhashkar Yadav](http://sidd3.com)
