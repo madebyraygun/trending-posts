@@ -72,7 +72,6 @@ class Install extends Migration
     {
         $tablesCreated = false;
 
-        // trendingpostsrecord table
         $tableSchema = Craft::$app->db->schema->getTableSchema('{{%trendingposts}}');
         if ($tableSchema === null) {
             $tablesCreated = true;
@@ -91,7 +90,6 @@ class Install extends Migration
                     'views' => $this->integer()->notNull(),
                 ]
             );
-            // trendingpostssummaryrecord table
             $this->createTable(
                 '{{%trendingpostssummary}}',
                 [
@@ -104,17 +102,6 @@ class Install extends Migration
                     'totalviews' => $this->integer()->notNull(),
                 ]
             );
-            // // Garbage collection table
-            // $this->createTable(
-            //     '{{%pageviewsgarbagecollectionrecord}}',
-            //     [
-            //         'id' => $this->primaryKey(),
-            //         'dateCreated' => $this->dateTime()->notNull(),
-            //         'dateUpdated' => $this->dateTime()->notNull(),
-            //         'uid' => $this->uid(),
-            //         'nextRun' => $this->dateTime()->notNull(),
-            //     ]
-            // );
         }
 
         return $tablesCreated;
@@ -125,7 +112,7 @@ class Install extends Migration
      */
     protected function createIndexes()
     {
-    // trendingpostsrecord table
+
         $this->createIndex(
             null,
             '{{%trendingposts}}',
@@ -138,12 +125,6 @@ class Install extends Migration
             'id',
             true
         );
-        // $this->createIndex(
-        //     null,
-        //     '{{%pageviewsgarbagecollectionrecord}}',
-        //     'id',
-        //     true
-        // );
         // Additional commands depending on the db driver
         switch ($this->driver) {
             case DbConfig::DRIVER_MYSQL:
@@ -193,6 +174,5 @@ class Install extends Migration
     {
         $this->dropTableIfExists('{{%trendingposts}}');
         $this->dropTableIfExists('{{%trendingpostssummary}}');
-        // $this->dropTableIfExists('{{%pageviewsgarbagecollectionrecord}}');
     }
 }

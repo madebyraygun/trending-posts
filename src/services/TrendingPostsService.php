@@ -60,14 +60,13 @@ class TrendingPostsService extends Component
     public function increment($entryId)
     {   
         $trackSection = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackSection;
-        if (!$trackSection) { // Null by default means all posts are tracked
+        if (!$trackSection) { // Null by default means views on all entries are recorded
             $inSection = true; 
         } elseif (is_array($trackSection)) {
             $inSection = in_array($getSection, $trackSection);
         } else {
-            $inSection = false;
+            return;
         }
-        if (!$inSection) return;
 
         $trackDays = \madebyraygun\trendingposts\TrendingPosts::getInstance()->getSettings()->trackDays;
         $trackSeconds = $trackDays*24*60*60;

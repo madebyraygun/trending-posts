@@ -1,8 +1,6 @@
 # Trending Posts plugin for Craft CMS 3.x
 
-A plugin to track page views on specific sections over time and order posts on the front-end by popularity.
-
-![Screenshot](resources/img/plugin-logo.png)
+Track pageviews over time and order your posts by popularity on the front-end. Options include the number of days to retain and a timed delay to prevent duplicate pageviews per IP address.
 
 ## Requirements
 
@@ -10,25 +8,34 @@ This plugin requires Craft CMS 3.0.0 or later.
 
 ## Installation
 
-To install the plugin, follow these instructions.
+This plugin is not on packagist, so you'll need to create a local Composer repository to install. From [https://nystudio107.com/blog/so-you-wanna-make-a-craft-3-plugin](Andrew Welch's guide to Craft 3 plugins):
 
-1. Open your terminal and go to your Craft project:
+1. Download the plugin locally to a directory relative to your Craft installation. 
 
-        cd /path/to/project
+2. Add the following to the *require* section of your site's composer.json:
 
-2. Then tell Composer to load the plugin:
+`"madebyraygun/trending-posts": "^1.0.0"`
 
-        composer require madebyraygun/trending-posts
+3. Add your local directory to the list of Composer repositories like so:
 
-3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Trending Posts.
+```"repositories": [
+  {
+    "type": "composer",
+    "url": "https://asset-packagist.org"
+  },
+  {
+    "type": "path",
+    "url": "../dev/trending-posts/"
+  }
+]```
 
-## Overview
+4. Run composer update.
 
-A plugin to track page views on specific sections over time. Time period, sections to track, and visitor timeout are configurable. Adds an Element Query orderBy filter to return posts ordered by page views.
+4. In the Control Panel, go to Settings → Plugins and click the “Install” button for Trending Posts.
 
 ## Configuration
 
-By default, the plugin will track page views in all sections. You can change which sections to track, how many days of activity to record, and visitor settings by creating a settings file in config/trending-posts.php. 
+You can change which sections to record, how many days of activity to keep, and visitor settings by creating a settings file in config/trending-posts.php. 
 
 ```<?php
 
@@ -43,7 +50,7 @@ The plugin uses an array of numerical section IDs to determine which entries to 
 
 ## Using in a template
 
-Use the following twig tag to increment view counts. You can put this in a global footer or only on entries you want to track.
+Use the following twig tag to increment view counts. You can put this in a global footer or only in specific sections that you want to track.
 
 `{% do craft.trendingPosts.increment(entry.id) %}`
 
@@ -59,10 +66,7 @@ For multiple section
 `craft.entries.section(['news','home']).limit('3').orderBy('popular').all()`
 
 ## ToDo
-
-Add a widget to display popular posts per section
-Move summary table updates and stale record deletion to a background task (preferably with cron)
-Create a settings section with selectable sections
+Ideas?
 
 ## Credits
 
