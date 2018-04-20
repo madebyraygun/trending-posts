@@ -66,6 +66,13 @@ For a single section
 For multiple section
 `craft.entries.section(['news','home']).limit('3').orderBy('popular').all()`
 
+## Viewing stats
+
+You can add the "Views" table column to your section on the back-end to see how many views a particular post has in the last X days. (X defaults to 7, which you can change in config/trending-posts.php)
+
+![Admin Column view](https://madebyraygun.com/media/trending-posts-admin-column.jpg)
+
+
 ## ToDo
 Ideas?
 
