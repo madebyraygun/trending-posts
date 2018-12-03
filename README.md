@@ -8,31 +8,17 @@ This plugin requires Craft CMS 3.0.0 or later.
 
 ## Installation
 
-This plugin is not on packagist, so you'll need to create a local Composer repository to install. From [Andrew Welch's guide to Craft 3 plugins](https://nystudio107.com/blog/so-you-wanna-make-a-craft-3-plugin):
+To install the plugin, follow these instructions.
 
-1. Download the plugin locally to a directory relative to your Craft installation. 
+1. Open your terminal and go to your Craft project:
 
-2. Add the following to the *require* section of your site's composer.json:
+        cd /path/to/project
 
-`"madebyraygun/trending-posts": "^1.0.0"`
+2. Then tell Composer to load the plugin:
 
-3. Add your local directory to the list of Composer repositories like so:
+        composer require madebyraygun/trending-posts
 
-```"repositories": [
-  {
-    "type": "composer",
-    "url": "https://asset-packagist.org"
-  },
-  {
-    "type": "path",
-    "url": "../dev/trending-posts/"
-  }
-]
-```
-
-4. Run composer update.
-
-5. In the Control Panel, go to Settings → Plugins and click the “Install” button for Trending Posts.
+3. In the Control Panel, go to Settings → Plugins and click the “Install” button for Trending Posts.
 
 ## Configuration
 
@@ -70,7 +56,7 @@ For multiple section
 
 You can add the "Views" table column to your section on the back-end to see how many views a particular post has in the last X days. (X defaults to 7, which you can change in config/trending-posts.php)
 
-![Admin Column view](https://madebyraygun.com/media/trending-posts-admin-column.jpg)
+![Admin Column view](https://madebyraygun.com/media/trending-posts/admin-column.jpg)
 
 
 ## ToDo
