@@ -63,7 +63,9 @@ class TrendingPostsService extends Component
         if (!$trackSection) { // Null by default means views on all entries are recorded
             $inSection = true; 
         } elseif (is_array($trackSection)) {
-            $inSection = in_array($getSection, $trackSection);
+            // assuming entry exists
+            $sectionId = Craft::$app->getEntries()->getEntryById($entryId)->sectionId;
+            $inSection = in_array($sectionId, $trackSection);
         } else {
             return;
         }
