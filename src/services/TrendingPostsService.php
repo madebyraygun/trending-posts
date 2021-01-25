@@ -87,7 +87,7 @@ class TrendingPostsService extends Component
         // @todo  Move this to cron task    
         Craft::$app->getDb()->createCommand()
         ->delete($this->trendingposts,
-                '[[dateCreated]] <= "'.$minusTrackDate.'"'
+                "[[dateCreated]] <= '".$minusTrackDate."'"
                 )
         ->execute();
 
@@ -97,7 +97,7 @@ class TrendingPostsService extends Component
                 'and',
                 ['entryId' => $entryId],
                 ['userIp' => $_SERVER['REMOTE_ADDR']],
-                '[[dateCreated]] >= "'.$yesterday.'"',
+                "[[dateCreated]] >= '".$yesterday."'",
             ])
             ->all();
 
