@@ -2,7 +2,7 @@
     "name": "madebyraygun/trending-posts",
     "description": "Order posts by pageviews over time",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "keywords": [
         "craft",
         "cms",
