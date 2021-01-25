@@ -219,7 +219,7 @@ class TrendingPostsService extends Component
             $getResults = $this->_getpageViewQuery()
                 ->where(['entryId' => $entryId])
                 ->one();
-            $getResult = $getResults["totalviews"];
+            $getResult = $getResults && is_array($getResults) ? $getResults["totalviews"] : null;
             if($getResult){
                 $e->html = $getResult;
             }else{
